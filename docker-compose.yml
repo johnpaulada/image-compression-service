@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  proxy:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./vhost.conf:/etc/nginx/conf.d/vhost.conf
+    volumes_from:
+      - php
+    links:
+      - php
+  php:
+    image: johnpaulada/php-image-compression
+    expose:
+      - "9000"
+    volumes:
+        - ./backend:/var/www/project
